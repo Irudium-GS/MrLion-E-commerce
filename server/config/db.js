@@ -13,15 +13,18 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
-// Test the connection
-(async () => {
+// Test database connection
+const testConnection = async () => {
   try {
     const connection = await pool.getConnection();
-    console.log('Connected to the GS MySQL database.');
+    console.log('Database connected successfully');
     connection.release();
   } catch (err) {
-    console.error('Error connecting to the database:', err.message);
+    console.error('Error connecting to the database:', err);
+    process.exit(1); // Exit if we can't connect to database
   }
-})();
+};
+
+testConnection();
 
 export default pool;
